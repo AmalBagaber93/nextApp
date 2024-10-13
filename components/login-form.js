@@ -1,17 +1,16 @@
 "use client";
+
 import InputController from "./input-controller";
 import { useForm } from "react-hook-form";
-import { authenticateProtected } from "../Auth/auth";
+import { useLogin } from "../apis/auth/use-login.mutation";
+import Cookies from "js-cookie";
 
 const LoginForm = () => {
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
-    const { email, password } = data;
-    const result = await authenticateProtected(null, email, password);
+  const { handleLogin } = useLogin();
 
-    console.log(result);
-  };
+  const onSubmit = (values) => handleLogin(values);
 
   return (
     <form
@@ -21,13 +20,13 @@ const LoginForm = () => {
       <p className="text-4xl">Login</p>
       <InputController
         control={control}
-        placeholder="Enter your name"
+        placeholder="Enter your Email"
         type="email"
-        name="username"
+        name="email"
       />
       <InputController
         control={control}
-        placeholder="Enter your password"
+        placeholder="Enter your Password"
         type="password"
         name="password"
       />
