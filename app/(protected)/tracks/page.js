@@ -1,14 +1,12 @@
-import React from 'react'
+import React from "react";
+import LogoutButton from "@/components/logout-button";
 
 const TracksPage = () => {
-
   return (
     <div>
-      <h1>hi succuful login</h1>
-
-{/* <LogoutButton/> */}
+      <LogoutButton />
     </div>
-  )
-}
+  );
+};
 
-export default TracksPage
+export default TracksPage;

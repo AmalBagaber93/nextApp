@@ -1,16 +1,27 @@
 "use client";
 
-import InputController from "./input-controller";
 import { useForm } from "react-hook-form";
+import InputController from "./input-controller";
 import { useLogin } from "../apis/auth/use-login.mutation";
-import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const { control, handleSubmit } = useForm();
+  const router = useRouter();
 
-  const { handleLogin } = useLogin();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: "youssef1998@gmail.com",
+      password: "Test123456@@",
+    },
+  });
 
-  const onSubmit = (values) => handleLogin(values);
+  const { mutate } = useLogin();
+
+  const onSubmit = (values) => {
+    mutate(values).then(() => {
+      router.refresh();
+    });
+  };
 
   return (
     <form
