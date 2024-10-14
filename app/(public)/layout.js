@@ -1,22 +1,12 @@
-import ky from "ky";
-import { cookies } from "next/headers";
+import { serverFatch } from "../utils/server-fatch";
 import { redirect } from "next/navigation";
 
 const getProfile = async () => {
-  const token = cookies().get("token")?.value;
-
   try {
-    const response = await ky.get(
-      "https://api.v2hackathon.bugsbytes.com/api/v1/competitor/me/profile",
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await serverFatch.get('https://api.v2hackathon.bugsbytes.com/api/v1/competitor/me/profile');
     return await response.json();
   } catch (error) {
-    // console.error(error);
+     console.error(error);
   }
 };
 
