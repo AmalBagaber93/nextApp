@@ -1,19 +1,13 @@
 "use client";
 
-import ky from "ky";
+import { clientFatch } from "@/app/utils/ky/client-fatch";
 import Cookies from "js-cookie";
+
+
 
 const handleLogin = async (values) => {
   try {
-    const response = await ky.post(
-      "https://api.v2hackathon.bugsbytes.com/api/v1/auth/login",
-      {
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await clientFatch.post(('auth/login'), {body: JSON.stringify(values)});
     const data = await response.json();
     const token = data?.data?.token;
     Cookies.set("token", `Bearer ${token}`);
